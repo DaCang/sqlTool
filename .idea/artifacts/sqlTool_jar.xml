@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="sqlTool:jar">
+    <output-path>$PROJECT_DIR$/out/</output-path>
+    <root id="archive" name="sqlTool.jar">
+      <element id="module-output" name="sqlTool" />
+      <element id="archive" name="SQLTOOL.jar" />
+    </root>
+  </artifact>
+</component>
