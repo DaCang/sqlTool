@@ -20,19 +20,47 @@ import javax.swing.JTextArea;
 
 public class SqlTool
 {
-    private JTextArea accountnameField = new JTextArea(70, 50);
+    /**
+     * sql text area
+     */
+    private JTextArea sqlJTextArea = new JTextArea(70, 50);
 
-    private JTextArea incomeField = new JTextArea(70, 50);
+    /**
+     * params text area
+     */
+    private JTextArea paramsJTextArea = new JTextArea(70, 50);
 
-    private JTextArea incomeFromField = new JTextArea(70, 50);
+    /**
+     * result text area
+     */
+    private JTextArea resultJTextArea = new JTextArea(70, 50);
 
-    //DEAL
-    private JButton DEALBtn = new JButton();
-    //COPY
-    private JButton COPYBtn = new JButton();
-    //CLEAR
-    private JButton CLEARBtn = new JButton();
-    JFrame frame = new JFrame("sql-tool-wangjie");
+
+    /**
+     * db connect form  area
+     */
+    private JTextArea dbConnectFromArea = new JTextArea(70, 50);
+
+    /**
+     * deal btn
+     */
+
+    private JButton dealBtn = new JButton();
+
+    /**
+     * copy btn
+     */
+    private JButton copyBtn = new JButton();
+   
+    /**
+     * clear btn
+     */
+    private JButton clearBtn = new JButton();
+    /**
+     * test connect btn
+     */
+    private JButton testConnectBtn = new JButton();
+    JFrame frame = new JFrame("sqlTool_syl");
 
     public static void main(String[] args)
     {
@@ -52,8 +80,8 @@ public class SqlTool
         frame.getContentPane().add(getDialogMainPanel(), 0);
         Container con = frame.getContentPane();
         ((JPanel)con).setOpaque(false);
-        frame.setSize(700, 500);
-        frame.setLocation(200, 100);
+        frame.setSize(900, 900);
+        frame.setLocation(10, 20);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(3);
     }
@@ -62,6 +90,7 @@ public class SqlTool
     {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
+
         GridBagConstraints nameLabelbagConstraints = new GridBagConstraints();
         nameLabelbagConstraints.gridx = 0;
         nameLabelbagConstraints.gridy = 0;
@@ -72,6 +101,7 @@ public class SqlTool
         nameLTextFieldbagConstraints.insets = new Insets(10, 10, 0, 40);
         nameLTextFieldbagConstraints.fill = 2;
         nameLTextFieldbagConstraints.weightx = 1.0D;
+
         GridBagConstraints incomeLabelbagConstraints = new GridBagConstraints();
         incomeLabelbagConstraints.gridx = 0;
         incomeLabelbagConstraints.gridy = 1;
@@ -82,6 +112,7 @@ public class SqlTool
         incomeLTextFieldbagConstraints.insets = new Insets(10, 10, 0, 40);
         incomeLTextFieldbagConstraints.fill = 2;
         incomeLTextFieldbagConstraints.weightx = 1.0D;
+
         GridBagConstraints incomeFromLabelbagConstraints = new GridBagConstraints();
         incomeFromLabelbagConstraints.gridx = 0;
         incomeFromLabelbagConstraints.gridy = 2;
@@ -92,73 +123,114 @@ public class SqlTool
         incomeFromLTextFieldbagConstraints.insets = new Insets(10, 10, 0, 40);
         incomeFromLTextFieldbagConstraints.fill = 2;
         incomeFromLTextFieldbagConstraints.weightx = 1.0D;
+
+        GridBagConstraints dbConnectFromLabelbagConstraints = new GridBagConstraints();
+        dbConnectFromLabelbagConstraints.gridx = 0;
+        dbConnectFromLabelbagConstraints.gridy = 3;
+        dbConnectFromLabelbagConstraints.insets = new Insets(10, 10, 0, 10);
+        GridBagConstraints dbConnectFromLTextFieldbagConstraints = new GridBagConstraints();
+        dbConnectFromLTextFieldbagConstraints.gridx = 1;
+        dbConnectFromLTextFieldbagConstraints.gridy = 3;
+        dbConnectFromLTextFieldbagConstraints.insets = new Insets(10, 10, 0, 40);
+        dbConnectFromLTextFieldbagConstraints.fill = 2;
+        dbConnectFromLTextFieldbagConstraints.weightx = 1.0D;
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 3;
         constraints.gridwidth = 20;
         constraints.insets = new Insets(10, 10, 0, 20);
 
-        //
-        accountnameField.setLineWrap(true);
-        JScrollPane jScrollPane1 = new JScrollPane(accountnameField);
+        /**
+         * text area
+         */
+        sqlJTextArea.setLineWrap(true);
+        JScrollPane jScrollPane1 = new JScrollPane(sqlJTextArea);
         jScrollPane1.setMinimumSize(new Dimension(100, 100));
-        incomeField.setLineWrap(true);
-        JScrollPane jScrollPane2 = new JScrollPane(incomeField);
+
+        paramsJTextArea.setLineWrap(true);
+        JScrollPane jScrollPane2 = new JScrollPane(paramsJTextArea);
         jScrollPane2.setMinimumSize(new Dimension(100, 100));
-        incomeFromField.setLineWrap(true);
-        JScrollPane jScrollPane3 = new JScrollPane(incomeFromField);
+
+        resultJTextArea.setLineWrap(true);
+        JScrollPane jScrollPane3 = new JScrollPane(resultJTextArea);
         jScrollPane3.setMinimumSize(new Dimension(100, 100));
+
+        dbConnectFromArea.setLineWrap(true);
+        JScrollPane jScrollPane4 = new JScrollPane(dbConnectFromArea);
+        jScrollPane1.setMinimumSize(new Dimension(100, 100));
+
         panel.add(new JLabel("sql"), nameLabelbagConstraints);
         panel.add(jScrollPane1, nameLTextFieldbagConstraints);
+
         panel.add(new JLabel("params"), incomeLabelbagConstraints);
         panel.add(jScrollPane2, incomeLTextFieldbagConstraints);
+
         panel.add(new JLabel("result"), incomeFromLabelbagConstraints);
         panel.add(jScrollPane3, incomeFromLTextFieldbagConstraints);
-        this.DEALBtn.setText("DEAL");
-        this.DEALBtn.setSize(new Dimension(30, 30));
-        this.DEALBtn.addActionListener(new ActionListener()
+
+
+        panel.add(new JLabel("db url"), dbConnectFromLabelbagConstraints);
+        panel.add(jScrollPane4, dbConnectFromLTextFieldbagConstraints);
+        /**
+         * btn
+         */
+        this.dealBtn.setText("deal");
+        this.dealBtn.setSize(new Dimension(30, 30));
+        this.dealBtn.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent arg0)
             {
-                String sql = SqlTool.this.accountnameField.getText();
-                String params = SqlTool.this.incomeField.getText();
-                SqlTool.this.incomeFromField.setText(SqlTool.this.dealSqlWithParams(sql, params));
+                String sql = SqlTool.this.sqlJTextArea.getText();
+                String params = SqlTool.this.paramsJTextArea.getText();
+                SqlTool.this.resultJTextArea.setText(SqlTool.this.dealSqlWithParams(sql, params));
             }
         });
-        this.COPYBtn.setText("COPY");
-        this.COPYBtn.setSize(new Dimension(30, 30));
-        this.COPYBtn.addActionListener(new ActionListener()
+        this.copyBtn.setText("copy");
+        this.copyBtn.setSize(new Dimension(30, 30));
+        this.copyBtn.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent arg0)
             {
-                String tempText = incomeFromField.getText();
+                String tempText = resultJTextArea.getText();
 
                 StringSelection editText = new StringSelection(tempText);
                 Clipboard clipboard = frame.getToolkit().getSystemClipboard();
                 clipboard.setContents(editText,null);
             }
         });
-        this.CLEARBtn.setText("CLEAR");
-        this.CLEARBtn.setSize(new Dimension(30, 30));
-        this.CLEARBtn.addActionListener(new ActionListener()
+        this.clearBtn.setText("clear");
+        this.clearBtn.setSize(new Dimension(30, 30));
+        this.clearBtn.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent arg0)
             {
-                accountnameField.setText("");
-                incomeFromField.setText("");
-                incomeField.setText("");
+                sqlJTextArea.setText("");
+                resultJTextArea.setText("");
+                paramsJTextArea.setText("");
+            }
+        });
+        this.testConnectBtn.setText("test connect");
+        this.testConnectBtn.setSize(new Dimension(30, 30));
+        this.testConnectBtn.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent arg0)
+            {
+                String connectStr = dbConnectFromArea.getText();
+                System.out.println(connectStr);
             }
         });
         JPanel panel2 = new JPanel();
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setAlignment(FlowLayout.RIGHT);
         panel2.setLayout(flowLayout);
-        panel2.add(DEALBtn);
-        panel2.add(COPYBtn);
-        panel2.add(CLEARBtn);
+        panel2.add(dealBtn);
+        panel2.add(copyBtn);
+        panel2.add(clearBtn);
+        panel2.add(testConnectBtn);
         panel.add(panel2, constraints);
         return panel;
     }
